@@ -1,6 +1,6 @@
 # Movies challege
 
-Esse é um aplicativo proposto com desafio no curso de flutter da Cubos Academy.
+Esse é um aplicativo proposto com desafio no curso de flutter da [Cubos Academy](https://cubos.academy/).
 
 Um Aplicativo de apresentação de filmes consumindo a API TMDB.
 
@@ -11,6 +11,8 @@ Cada aluno ficou responsável pelo o layour e codifição do seu aplicativo.
 Diante das informçãoes segue o iFrame para primeiros rabiscos de pelas:
 
 <H2>IFrame</H2>
+
+<img src="https://user-images.githubusercontent.com/16937201/120697853-9f2a2a80-c484-11eb-9230-7e9d25126ce0.jpg" height= "355" width="200">
 
 ## Getting Started
 
