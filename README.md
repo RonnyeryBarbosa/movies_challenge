@@ -1,6 +1,16 @@
-# movies_challege
+# Movies challege
 
-A new Flutter project.
+Esse é um aplicativo proposto com desafio no curso de flutter da Cubos Academy.
+
+Um Aplicativo de apresentação de filmes consumindo a API TMDB.
+
+[API TMDB - onde é consumido os dados dos filmes](https://www.themoviedb.org/documentation/api)
+
+Cada aluno ficou responsável pelo o layour e codifição do seu aplicativo.
+
+Diante das informçãoes segue o iFrame para primeiros rabiscos de pelas:
+
+<H2>IFrame</H2>
 
 ## Getting Started
 
