@@ -11,6 +11,22 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  int currentPage = 0;
+  List<Map<String, String>> splashData = [
+    {
+      "text": "Wecome to Tokoto, Let' shop!",
+      "image": "assets/images/splash_1.png"
+    },
+    {
+      "text":
+          "We help people conect with store \naround United State of America",
+      "image": "assets/images/splash_2.png",
+    },
+    {
+      "text": "We show the easy way to shop. \nJust stay at home with us",
+      "image": "assets/images/splash_3.png",
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     PageController controller = PageController(initialPage: 0);
@@ -24,27 +40,40 @@ class _HomeViewState extends State<HomeView> {
               Container(
                   height: MediaQuery.of(context).size.height * 0.4,
                   color: Colors.white,
-                  child: PageView(
-                    /// [PageView.scrollDirection] defaults to [Axis.horizontal].
-                    /// Use [Axis.vertical] to scroll vertically.
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: (value) {
-                      print(value);
-                    },
-                    controller: controller,
-                    children: <Widget>[
-                      BannerViewPage(),
-                      Center(
-                        child: Text('First Page'),
+                  child: Stack(children: [
+                    PageView(
+                      /// [PageView.scrollDirection] defaults to [Axis.horizontal].
+                      /// Use [Axis.vertical] to scroll vertically.
+                      scrollDirection: Axis.horizontal,
+                      onPageChanged: (value) {
+                        print(value);
+                      },
+                      controller: controller,
+                      children: <Widget>[
+                        BannerViewPage(),
+                        Center(
+                          child: Text('First Page'),
+                        ),
+                        Center(
+                          child: Text('Second Page'),
+                        ),
+                        Center(
+                          child: Text('Third Page'),
+                        )
+                      ],
+                    ),
+                    Positioned(
+                      top: 220,
+                      left: 80,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          splashData.length,
+                          (index) => buildDot(index: index),
+                        ),
                       ),
-                      Center(
-                        child: Text('Second Page'),
-                      ),
-                      Center(
-                        child: Text('Third Page'),
-                      )
-                    ],
-                  )),
+                    )
+                  ])),
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: 0.6,
@@ -102,15 +131,28 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget circleBar(bool isActive) {
+  AnimatedContainer buildDot({required int index}) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 150),
-      margin: EdgeInsets.symmetric(horizontal: 8),
-      height: isActive ? 12 : 8,
-      width: isActive ? 12 : 8,
+      duration: Duration(milliseconds: 200),
+      margin: EdgeInsets.only(right: 5),
+      width: currentPage == index ? 20 : 6,
+      height: 6,
       decoration: BoxDecoration(
-          color: isActive ? kPrimaryColor : kAccentColor,
-          borderRadius: BorderRadius.all(Radius.circular(12))),
+        color: currentPage == index ? kAccentColor : Color(0xFFD8D8D8),
+        borderRadius: BorderRadius.circular(3),
+      ),
     );
   }
 }
+
+// Widget circleBar(bool isActive) {
+//   return AnimatedContainer(
+//     duration: Duration(milliseconds: 150),
+//     margin: EdgeInsets.symmetric(horizontal: 8),
+//     height: isActive ? 12 : 8,
+//     width: isActive ? 12 : 8,
+//     decoration: BoxDecoration(
+//         color: isActive ? kPrimaryColor : kAccentColor,
+//         borderRadius: BorderRadius.all(Radius.circular(12))),
+//   );
+// }
