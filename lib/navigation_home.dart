@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movies_challege/home_view.dart';
+import 'package:movies_challege/ui/screens/home/home_view.dart';
 import 'package:movies_challege/ui/constants/colors.dart';
 
 class NavigationHomeView extends StatefulWidget {
