@@ -13,7 +13,7 @@ class CartButtonMore extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         child: Container(
           padding: EdgeInsets.only(left: 10, right: 10),
-          width: MediaQuery.of(context).size.width * 0.17,
+          width: MediaQuery.of(context).size.width * 0.25,
           child: Center(
               child: Row(
             children: [

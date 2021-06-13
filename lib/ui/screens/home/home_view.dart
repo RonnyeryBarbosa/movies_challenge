@@ -41,9 +41,9 @@ class _HomeViewState extends State<HomeView> {
     PageController controller = PageController(initialPage: 0);
     return Scaffold(
       body: Container(
-        color: kPrimaryColor,
+        color: kTransparenceColor,
         child: StreamBuilder<List<Movie>>(
-            stream: _viewModel.streamMovies.stream,
+            stream: _viewModel.streamBanner.stream,
             builder: (context, snapshot) {
               return SingleChildScrollView(
                 child: Column(
@@ -67,19 +67,23 @@ class _HomeViewState extends State<HomeView> {
                                   movie: snapshot.data!.elementAt(index)),
                             ),
                           ),
-                          Positioned(
-                            top: 220,
-                            left: 80,
+                          Align(
+                            alignment: Alignment.bottomLeft,
                             child: StreamBuilder<int>(
                                 stream: _viewModel.streamCurrentPage.stream,
-                                builder: (context, snapshot2) {
-                                  return Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: List.generate(
-                                      snapshot.data!.length,
-                                      (index) => buildDot(
-                                          index: index,
-                                          data: snapshot2.data ?? 0),
+                                builder: (context, snapshot3) {
+                                  return Container(
+                                    margin:
+                                        EdgeInsets.only(bottom: 20, left: 50),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: List.generate(
+                                        snapshot.data!.length,
+                                        (index) => buildDot(
+                                            index: index,
+                                            data: snapshot3.data ?? 0),
+                                      ),
                                     ),
                                   );
                                 }),
@@ -87,54 +91,24 @@ class _HomeViewState extends State<HomeView> {
                         ])),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 0.6,
-                      color: Colors.grey,
+                      height: 1,
+                      color: kAccentColor,
                     ),
-                    TitleList(title: "Lançamentos"),
-                    Container(
-                      margin: EdgeInsets.only(left: 20),
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          CardMovieFilm(),
-                          CardMovieFilm(),
-                          CartButtonMore()
-                        ],
-                      ),
+                    ListMoviesView(
+                      label: "Lançamentos",
+                      stream: _viewModel.streamMovies.stream,
                     ),
-                    TitleList(title: "Em Exibição"),
-                    Container(
-                      margin: EdgeInsets.only(left: 20),
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          CardMovieFilm(),
-                          CardMovieFilm(),
-                          CartButtonMore()
-                        ],
-                      ),
+                    ListMoviesView(
+                      label: "Em Exibição",
+                      stream: _viewModel.streamNowMovie.stream,
                     ),
-                    TitleList(title: "Populares"),
-                    Container(
-                      margin: EdgeInsets.only(left: 20),
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          CardMovieFilm(),
-                          CardMovieFilm(),
-                          CardMovieFilm(),
-                          CardMovieFilm(),
-                          CardMovieFilm(),
-                          CardMovieFilm(),
-                          CardMovieFilm(),
-                          CardMovieFilm(),
-                          CartButtonMore()
-                        ],
-                      ),
+                    ListMoviesView(
+                      label: "Melhores avaliados",
+                      stream: _viewModel.streamPopularMovie.stream,
                     ),
+                    SizedBox(
+                      height: 10,
+                    )
                   ],
                 ),
               );
@@ -153,6 +127,63 @@ class _HomeViewState extends State<HomeView> {
         color: index == data ? kAccentColor : Color(0xFFD8D8D8),
         borderRadius: BorderRadius.circular(3),
       ),
+    );
+  }
+}
+
+class ListMoviesView extends StatelessWidget {
+  final label;
+  final stream;
+  const ListMoviesView({
+    this.label,
+    this.stream,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TitleList(title: label),
+        Container(
+            margin: EdgeInsets.only(left: 20),
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: StreamBuilder<List<Movie>>(
+                stream: stream,
+                builder: (context, snapshotM) {
+                  if (!snapshotM.hasData) {
+                    return CircularProgressIndicator();
+                  }
+
+                  return ListView.separated(
+                    itemCount: snapshotM.data!.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      print("sds $index ${snapshotM.data!.length}");
+                      if (index == snapshotM.data!.length - 1) {
+                        return CartButtonMore();
+                      }
+                      return CardMovieFilm(
+                          image: snapshotM.data![index].poster);
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(
+                        width: 10,
+                      );
+                    },
+                  );
+                })
+            // ListView(
+            //   scrollDirection: Axis.horizontal,
+            //   children: [
+            //     CardMovieFilm(),
+            //     CardMovieFilm(),
+            //     CartButtonMore()
+            //   ],
+            // ),
+            ),
+      ],
     );
   }
 }

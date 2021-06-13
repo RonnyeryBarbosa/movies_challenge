@@ -16,9 +16,9 @@ class CardMovieFilm extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: Image.network(
-          image!,
+          'https://image.tmdb.org/t/p/w300${image}',
           height: 15,
-          width: MediaQuery.of(context).size.width * 0.17,
+          width: MediaQuery.of(context).size.width * 0.28,
           fit: BoxFit.cover,
         ),
       ),
