@@ -7,31 +7,16 @@ import 'package:movies_challege/ui/components/progress_view.dart';
 import 'package:movies_challege/ui/components/title_list.dart';
 import 'package:movies_challege/ui/components/view_page.dart';
 import 'package:movies_challege/ui/constants/colors.dart';
-import 'package:movies_challege/ui/screens/home/home_view_model.dart';
+import 'package:movies_challege/ui/screens/series/series_view_model.dart';
 
-class HomeView extends StatefulWidget {
+class SeriesView extends StatefulWidget {
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _SeriesViewState createState() => _SeriesViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
-  final _viewModel = HomeViewModel();
+class _SeriesViewState extends State<SeriesView> {
+  final _viewModel = SeriesViewModel();
   int currentPage = 0;
-  List<Map<String, String>> splashData = [
-    {
-      "text": "Wecome to Tokoto, Let' shop!",
-      "image": "assets/images/splash_1.png"
-    },
-    {
-      "text":
-          "We help people conect with store \naround United State of America",
-      "image": "assets/images/splash_2.png",
-    },
-    {
-      "text": "We show the easy way to shop. \nJust stay at home with us",
-      "image": "assets/images/splash_3.png",
-    },
-  ];
 
   @override
   void initState() {
@@ -100,19 +85,19 @@ class _HomeViewState extends State<HomeView> {
                       color: kAccentColor,
                     ),
                     ListMoviesView(
-                      label: "Lançamentos",
+                      label: "Transmitindo hoje",
                       stream: _viewModel.streamMovies.stream,
-                      typeRequest: REQUEST_UPCOMING,
+                      typeRequest: REQUEST_TV_ON_THE_AIR,
                     ),
                     ListMoviesView(
-                      label: "Em Exibição",
+                      label: "Na Tv",
                       stream: _viewModel.streamNowMovie.stream,
-                      typeRequest: REQUEST_NOW_PLAYING,
+                      typeRequest: REQUEST_TV_AIRING_TODAY,
                     ),
                     ListMoviesView(
                         label: "Melhores avaliados",
                         stream: _viewModel.streamPopularMovie.stream,
-                        typeRequest: REQUEST_POPULAR),
+                        typeRequest: REQUEST_TV_TOP_RATED),
                     SizedBox(
                       height: 10,
                     )
@@ -191,29 +176,8 @@ class ListMoviesView extends StatelessWidget {
                       );
                     },
                   );
-                })
-            // ListView(
-            //   scrollDirection: Axis.horizontal,
-            //   children: [
-            //     CardMovieFilm(),
-            //     CardMovieFilm(),
-            //     CartButtonMore()
-            //   ],
-            // ),
-            ),
+                })),
       ],
     );
   }
 }
-
-// Widget circleBar(bool isActive) {
-//   return AnimatedContainer(
-//     duration: Duration(milliseconds: 150),
-//     margin: EdgeInsets.symmetric(horizontal: 8),
-//     height: isActive ? 12 : 8,
-//     width: isActive ? 12 : 8,
-//     decoration: BoxDecoration(
-//         color: isActive ? kPrimaryColor : kAccentColor,
-//         borderRadius: BorderRadius.all(Radius.circular(12))),
-//   );
-// }

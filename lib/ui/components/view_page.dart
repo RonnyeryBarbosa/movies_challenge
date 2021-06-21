@@ -22,7 +22,7 @@ class BannerViewPage extends StatelessWidget {
             top: 140,
             left: 70,
             child: Text(
-              movie!.title!,
+              movie!.title ?? movie!.name!,
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 25,

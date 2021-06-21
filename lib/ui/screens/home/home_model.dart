@@ -25,14 +25,14 @@ class HomeModel {
   updatePage(page) => _currentPage = page;
 
   feathMoviesUpcoming() {
-    _movieResponse = api.fetchMovie(REQUEST_UPCOMING);
+    _movieResponse = api.fetchMovie(endPoint: REQUEST_UPCOMING);
   }
 
   feathMoviewNowPlaying() {
-    _nowPlayingMovies = api.fetchMovie(REQUEST_NOW_PLAYING);
+    _nowPlayingMovies = api.fetchMovie(endPoint: REQUEST_NOW_PLAYING);
   }
 
   feathMoviewPopular() {
-    _popularMovies = api.fetchMovie(REQUEST_POPULAR);
+    _popularMovies = api.fetchMovie(endPoint: REQUEST_POPULAR);
   }
 }
