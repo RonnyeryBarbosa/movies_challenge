@@ -10,4 +10,12 @@ class MovieResponse {
     totalPage = json['total_page'];
     movies = List<Movie>.from(json['results'].map((x) => Movie.fromJson(x)));
   }
+
+  MovieResponse.fromMap(List<Map<String, dynamic>> json) {
+    movies = List.generate(json.length, (index) {
+      print(json);
+      return Movie(json[index]['id'], "", "", json[index]['poster'], "",
+          json[index]['favorite']);
+    });
+  }
 }

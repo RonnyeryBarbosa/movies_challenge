@@ -14,7 +14,8 @@ class Movie {
   String? overview;
   int? favorite = 0;
 
-  Movie(this.id, this.title, this.date, this.poster, this.banner);
+  Movie(
+      this.id, this.title, this.date, this.poster, this.banner, this.favorite);
 
   String? genreInfo() => this.genres!.join(",").toString();
 

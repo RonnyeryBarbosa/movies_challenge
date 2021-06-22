@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:movies_challege/adapter/storege_adapter.dart';
 import 'package:movies_challege/data/model/cast.dart';
 import 'package:movies_challege/data/model/movie.dart';
-import 'package:movies_challege/data/model/movie_response.dart';
 import 'package:movies_challege/data/sql_adapter.dart';
 import 'package:movies_challege/networking/API.dart';
-import 'package:movies_challege/networking/EndPoints.dart';
 
 class MovieDetailsModel {
   Future<Movie>? _movieResponse;

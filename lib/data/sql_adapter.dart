@@ -1,5 +1,6 @@
 import 'package:movies_challege/adapter/storege_adapter.dart';
 import 'package:movies_challege/data/model/movie.dart';
+import 'package:movies_challege/data/model/movie_response.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -36,13 +37,15 @@ class SQLAdapter extends StoregeAdapter {
   @override
   Future<List<Movie>> getMovies() async {
     final Database db = await database;
-    var response = await db.query('Movies');
+    //var response = await db.query('Movies');
 
-    if (response.isNotEmpty) {
-      print(response);
-    } else {}
+    final List<Map<String, dynamic>> maps = await db.query('Movies');
 
-    throw UnimplementedError();
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(maps.length, (i) {
+      return Movie(
+          maps[i]['id'], "", "", maps[i]['poster'], "", maps[i]['favorite']);
+    });
   }
 
   @override

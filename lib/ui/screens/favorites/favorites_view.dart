@@ -3,24 +3,21 @@ import 'package:movies_challege/data/model/movie.dart';
 import 'package:movies_challege/ui/components/card_movie_item.dart';
 import 'package:movies_challege/ui/components/progress_view.dart';
 import 'package:movies_challege/ui/constants/colors.dart';
-import 'package:movies_challege/ui/screens/movies/movie_list_view_model.dart';
+import 'package:movies_challege/ui/screens/favorites/favorites_model.dart';
+import 'package:movies_challege/ui/screens/favorites/favorites_view_mode.dart';
 
-class MovieList extends StatefulWidget {
+class FavoritesView extends StatefulWidget {
   @override
-  _MovieListState createState() => _MovieListState();
+  _FavoritesViewState createState() => _FavoritesViewState();
 }
 
-class _MovieListState extends State<MovieList> {
-  final _viewModel = MovieListViewModel();
+class _FavoritesViewState extends State<FavoritesView> {
+  final _viewModel = FavoritesViewModel();
 
   @override
   Widget build(BuildContext context) {
-    if (ModalRoute.of(context)?.settings.arguments != null) {
-      _viewModel
-          .setRequest(ModalRoute.of(context)?.settings.arguments as String);
+    _viewModel.feachMovies();
 
-      _viewModel.feathMovies();
-    }
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -28,34 +25,9 @@ class _MovieListState extends State<MovieList> {
           child: Container(
             child: Column(
               children: [
-                Container(
-                  padding:
-                      EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      Text(
-                        "Home",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
                 Expanded(
                   child: StreamBuilder<List<Movie>>(
-                      stream: _viewModel.streamMovie.stream,
+                      stream: _viewModel.streamMovies.stream,
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return ProgressView();
@@ -65,14 +37,10 @@ class _MovieListState extends State<MovieList> {
                           gridDelegate:
                               SliverGridDelegateWithMaxCrossAxisExtent(
                                   maxCrossAxisExtent: 200,
-                                  childAspectRatio: 3 / 4,
+                                  childAspectRatio: 2 / 4,
                                   crossAxisSpacing: 4,
                                   mainAxisSpacing: 4),
                           itemBuilder: (context, index) {
-                            print(index);
-                            if (index == (snapshot.data!.length - 4)) {
-                              _viewModel.feathMovies();
-                            }
                             return GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(context, "movie_details",
