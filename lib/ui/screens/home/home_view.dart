@@ -179,7 +179,10 @@ class ListMoviesView extends StatelessWidget {
                         );
                       } else {
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, "movie_details",
+                                arguments: snapshotM.data![index].id);
+                          },
                           child: CardMovieFilm(
                               image: snapshotM.data![index].poster),
                         );

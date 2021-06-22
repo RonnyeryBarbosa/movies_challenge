@@ -7,7 +7,7 @@ import 'package:movies_challege/ui/screens/series/series_view.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: MovieDetails(),
+    home: NavigationHomeView(),
     routes: {
       "movie_list": (context) => MovieList(),
       "movie_details": (context) => MovieDetails(),

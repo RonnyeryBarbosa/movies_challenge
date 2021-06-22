@@ -33,11 +33,7 @@ class ProductionCastItem extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12)),
-                child: Image.network(
-                  'https://image.tmdb.org/t/p/w300${image}',
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.cover,
-                ),
+                child: image != null ? imageRemote(context) : a(),
               ),
             ),
             SizedBox(
@@ -65,5 +61,17 @@ class ProductionCastItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Image imageRemote(BuildContext context) {
+    return Image.network(
+      'https://image.tmdb.org/t/p/w300${image}',
+      width: MediaQuery.of(context).size.width,
+      fit: BoxFit.cover,
+    );
+  }
+
+  a() {
+    return Image.asset("assets/images/icon_movie_now.png");
   }
 }

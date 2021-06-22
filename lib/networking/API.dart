@@ -31,8 +31,9 @@ class APIService {
     }
   }
 
-  Future<Movie> findMovie({String endPoint = "", @required int? idMvie}) async {
-    var path = pathDefault + endPoint + "/337404";
+  Future<Movie> findMovie(
+      {String endPoint = "", @required int? idMovie}) async {
+    var path = pathDefault + endPoint + "/$idMovie";
     print(path);
     print(path);
     final queryParameters = {

@@ -10,16 +10,24 @@ class MovieDetailsViewModel {
 
   Future<Movie>? get movieResponse => _model.movieResponse;
   Future<ResponseCast>? get responseCast => _model.responseCast;
+  Future<bool>? get isFavorite => _model.isFavorite;
 
   StreamController<Movie> streamMovie = StreamController();
   StreamController<List<Cast>> streamCasts = StreamController();
   StreamController<List<Crew>> streamCrews = StreamController();
+  StreamController<bool> streamFavorite = StreamController();
 
   findMovie({@required int? movieId}) {
     findCast(movieId: movieId);
     _model.findMovie(movieId: movieId);
     movieResponse!.then((value) {
+      _model.setMovie(value);
+      _model.checkIsFavorite();
       streamMovie.add(value);
+      isFavorite!.then((value) {
+        print("faco ${value}");
+        streamFavorite.add(value);
+      });
     });
   }
 
@@ -28,6 +36,14 @@ class MovieDetailsViewModel {
     responseCast!.then((value) {
       streamCasts.add(value.cast!);
       streamCrews.add(value.crew!);
+    });
+  }
+
+  favoriteMovie() {
+    _model.favoriteMovie();
+    isFavorite!.then((value) {
+      print("faco88 ${value}");
+      streamFavorite.add(value);
     });
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_challege/data/model/cast.dart';
 import 'package:movies_challege/data/model/movie.dart';
-import 'package:movies_challege/ui/components/info_geral_item.dart';
 import 'package:movies_challege/ui/components/production_cast_item.dart';
 import 'package:movies_challege/ui/components/progress_view.dart';
 import 'package:movies_challege/ui/components/title_list.dart';
@@ -72,14 +71,6 @@ class _MovieDetailsState extends State<MovieDetails> {
                                       Navigator.pop(context);
                                     },
                                   ),
-                                  Text(
-                                    snapshot.data?.title ?? "",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  )
                                 ],
                               ),
                             ),
@@ -133,13 +124,27 @@ class _MovieDetailsState extends State<MovieDetails> {
                               right: 20,
                               bottom: 10,
                               child: FloatingActionButton(
-                                child: Icon(
-                                  Icons.favorite_outline,
-                                  color: kAccentColor,
-                                ),
+                                child: StreamBuilder<bool>(
+                                    stream: _viewmodel.streamFavorite.stream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Icon(
+                                          snapshot.data!
+                                              ? Icons.favorite
+                                              : Icons.favorite_outline,
+                                          color: kAccentColor,
+                                        );
+                                      }
+                                      return Icon(
+                                        Icons.favorite_outline,
+                                        color: kAccentColor,
+                                      );
+                                    }),
                                 backgroundColor: Colors.black,
                                 mini: true,
-                                onPressed: () {},
+                                onPressed: () {
+                                  _viewmodel.favoriteMovie();
+                                },
                               ),
                             )
                           ],

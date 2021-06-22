@@ -7,11 +7,12 @@ class Movie {
   String? name;
   String? originalLanguage;
   String? realeaseDate;
-  double? rating;
+  var rating;
   double? revenue;
-  double? runtime;
+  int? runtime;
   List<Genres>? genres;
   String? overview;
+  int? favorite = 0;
 
   Movie(this.id, this.title, this.date, this.poster, this.banner);
 
@@ -36,12 +37,22 @@ class Movie {
     rating = json['vote_average'];
     runtime = json['runtime'];
     overview = json['overview'];
+    favorite = json['favorite'];
     if (json['genres'] != null) {
       genres = [];
       json['genres'].forEach((v) {
         genres?.add(Genres.fromJson(v));
       });
     }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = id;
+    data['poster'] = poster;
+    data['favorite'] = favorite;
+    print("map $data");
+    return data;
   }
 }
 
